@@ -6,7 +6,6 @@ import {
   Route,
   //Link
   useLocation,
-  useRouteMatch,
 } from "react-router-dom";
 
 import Header from './components/header/View'
@@ -52,8 +51,6 @@ function App() {
 
 function Main() {
   const location = useLocation();
-  const match = useRouteMatch();
-  console.log('match',match)
 
   useEffect(() => {
     intersectionObserver();
@@ -71,28 +68,28 @@ function Main() {
         {/*<Route path="/test">
           <Test />
         </Route>*/}
-        <Route path={`${match.url}about`}>
+        <Route path="/about">
           <About observer={true} />
           <Achievements />
           <Clients observer={true} />
           <TeamFull observer={true} />
         </Route>
-        <Route path={`${match.url}services`}>
+        <Route path="/services">
           <ServicesFull observer={true} />
           <Prices observer={true} />
           <Testimonials observer={true} />
         </Route>
-        <Route path={`${match.url}news`}>
+        <Route path="/news">
           <News />
         </Route>
-        <Route path={`${match.url}article:id`}>
+        <Route path="/article:id">
           <Article observer={true} />
         </Route>
-        <Route path={`${match.url}contacts`}>
+        <Route path="/contacts">
           <Contacts observer={true} />
           <Map observer={true} />
         </Route>
-        <Route path={`${match.url}`}>
+        <Route path="/">
           <SliderMain />
           <Services observer={true} />
           <Achievements />
