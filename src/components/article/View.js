@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {newsTag} from '../../store/actions.js';
 
-import Preloader from '../preloader/View'
+//import Preloader from '../preloader/View'
 
 import Img0 from '../../assets/img/news/news-0.jpg'
 import Img1 from '../../assets/img/news/news-1.jpg'

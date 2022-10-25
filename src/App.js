@@ -1,106 +1,82 @@
 import React, {useState, useEffect} from 'react';
-//import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  //Link
   useLocation,
 } from "react-router-dom";
 
 import Header from './components/header/View'
 import Footer from './components/footer/View'
 import Preloader from './components/preloader/View'
-import SliderMain from './components/slidermain/View'
-import Services from './components/services/View'
-import ServicesFull from './components/services/BlockFull'
-import Achievements from './components/achievements/View'
-import Prices from './components/prices/View'
-import Testimonials from './components/testimonials/View'
-import Seo from './components/seo/View'
-import Team from './components/team/View'
-import TeamFull from './components/team/BlockFull'
-import About from './components/about/View'
-import Clients from './components/clients/View'
-import News from './components/news/View'
-import Article from './components/article/View'
-import Contacts from './components/contacts/View'
-import Map from './components/contacts/Map'
+import AboutPage from './pages/about'
+import ServicesPage from './pages/services'
+import NewsPage from './pages/news'
+import ArticlePage from './pages/article'
+import ContactsPage from './pages/contacts'
+import MainPage from './pages/mainpage';
 
 import intersectionObserver from './utils/intersectionObserver'
 
-
-function App() {
-  const [preloader, setPreloader] = useState(true);
-  useEffect(() => {
-    setPreloader(false);
-  }, []);
-
-  return (
-    <Router>
-      <Main />
-
-      <Footer />
-
-      <Header />
-
-      <Preloader preloader={preloader} />
-    </Router>
-  );
-} 
-
-function Main() {
+function PageWrapper(props){
   const location = useLocation();
 
   useEffect(() => {
     intersectionObserver();
   }, [location]);
 
-  const { pathname } = useLocation();
-
+  const [preloader, setPreloader] = useState(true);
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    setPreloader(false);
+  }, []);
 
   return (
     <main className="main">
+      {props.children}
+      <Footer />
+      <Header />
+      <Preloader preloader={preloader} />
+    </main>
+  )
+}
+function App() {
+
+  return (
+    <Router>
       <Switch>
-        {/*<Route path="/test">
-          <Test />
-        </Route>*/}
         <Route path="/about">
-          <About observer={true} />
-          <Achievements />
-          <Clients observer={true} />
-          <TeamFull observer={true} />
+          <PageWrapper>
+            <AboutPage />
+          </PageWrapper>
         </Route>
         <Route path="/services">
-          <ServicesFull observer={true} />
-          <Prices observer={true} />
-          <Testimonials observer={true} />
+          <PageWrapper>
+            <ServicesPage />
+          </PageWrapper>
         </Route>
         <Route path="/news">
-          <News />
+          <PageWrapper>
+            <NewsPage />
+          </PageWrapper>
         </Route>
         <Route path="/article:id">
-          <Article observer={true} />
+          <PageWrapper>
+            <ArticlePage />
+          </PageWrapper>
         </Route>
         <Route path="/contacts">
-          <Contacts observer={true} />
-          <Map observer={true} />
+          <PageWrapper>
+            <ContactsPage />
+          </PageWrapper>
         </Route>
         <Route path="/">
-          <SliderMain />
-          <Services observer={true} />
-          <Achievements />
-          <Prices observer={true} />
-          <Testimonials observer={true} />
-          <Seo observer={true} />
-          <Team observer={true} />
+          <PageWrapper>
+            <MainPage />
+          </PageWrapper>
         </Route>
       </Switch>
-    </main>
+    </Router>
   );
-}
+} 
 
 export default App;
